@@ -95,3 +95,6 @@ def main():
 if __name__ == "__main__":
     main()
 
+
+# Example usage 
+# python3 run_data_preprocessing.py --dataset_path /home/icmr/Documents/D-Former-Attempt/Data/Task03_Liver_rs --dataset_type medical_decathlon --output_dir data_preprocessed
