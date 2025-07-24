@@ -49,7 +49,7 @@ python3 run_data_preprocessing.py \
 
 You can specify preprocessing parameters via command-line arguments or a JSON config file. Key parameters include:
 - `target_spacing`: Target voxel spacing (default: [1.0, 1.0, 1.0])
-- `target_size`: Target image size (default: [256, 256, 128])
+- `target_size`: Target image size (default: [256, 256, 300])
 - `intensity_range`: Intensity clipping range (default: [-100, 400])
 - `normalize_method`: Normalization method (`zscore`, `minmax`, `robust`)
 - `apply_augmentation`: Enable/disable augmentation (default: True)

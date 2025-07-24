@@ -7,7 +7,7 @@ class PreprocessingConfig:
     """Configuration class for preprocessing parameters"""
     # Spatial parameters
     target_spacing: Tuple[float, float, float] = (1.0, 1.0, 1.0)  # mm
-    target_size: Tuple[int, int, int] = (256, 256, 128)  # voxels
+    target_size: Tuple[int, int, int] = (256, 256, 300)  # voxels
     
     # Intensity parameters
     intensity_range: Tuple[float, float] = (-100, 400)  # HU units for CT
@@ -17,7 +17,7 @@ class PreprocessingConfig:
     apply_augmentation: bool = True
     rotation_degrees: float = 10.0
     translation_range: float = 10.0
-    elastic_deformation: bool = True
+    elastic_deformation: bool = False
     
     # Dataset split
     train_ratio: float = 0.7

@@ -17,8 +17,9 @@ import numpy as np
 class DataPreprocessor:
     """Main data preprocessing orchestrator"""
     
-    def __init__(self, config: PreprocessingConfig):
+    def __init__(self, config: PreprocessingConfig, phase: str = "Arterial"):
         self.config = config
+        self.phase = phase
         self.pipeline = CTPreprocessingPipeline(config)
         
     def get_dataset_handler(self, dataset_path: str, dataset_type: str) -> DatasetHandler:
@@ -26,7 +27,7 @@ class DataPreprocessor:
         if dataset_type == "medical_decathlon":
             return MedicalDecathlonHandler(dataset_path)
         elif dataset_type == "jipmer":
-            return JIPMERHandler(dataset_path)
+            return JIPMERHandler(dataset_path, phase=self.phase)
         else:
             raise ValueError(f"Unknown dataset type: {dataset_type}")
     

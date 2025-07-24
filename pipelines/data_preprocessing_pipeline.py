@@ -78,7 +78,7 @@ class CTPreprocessingPipeline:
             affine = np.array(image.affine)
         
         # Calculate intensity statistics
-        image_data = image.data.squeeze()
+        image_data = image.data.squeeze().float()
         intensity_stats = {
             "min": float(image_data.min()),
             "max": float(image_data.max()),
@@ -143,7 +143,7 @@ class CTPreprocessingPipeline:
         transformed_subject = transform(subject)
         
         # Apply intensity normalization
-        image_data = transformed_subject['image'].data.squeeze()
+        image_data = transformed_subject['image'].data.squeeze().float()
         label_data = transformed_subject['label'].data.squeeze()
         
         if self.config.normalize_method == "zscore":

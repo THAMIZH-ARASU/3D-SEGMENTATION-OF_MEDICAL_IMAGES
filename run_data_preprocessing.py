@@ -57,10 +57,12 @@ def main():
                        help="Output directory for processed data")
     parser.add_argument("--config", type=str, default=None,
                        help="Path to configuration JSON file")
-    
+    # Add phase argument for JIPMER
+    parser.add_argument("--phase", type=str, default="Arterial", choices=["Arterial", "Portal", "Venous"],
+                       help="Phase for JIPMER dataset (Arterial, Portal, Venous)")
     # Configuration parameters
     parser.add_argument("--target_spacing", nargs=3, type=float, default=[1.0, 1.0, 1.0])
-    parser.add_argument("--target_size", nargs=3, type=int, default=[256, 256, 128])
+    parser.add_argument("--target_size", nargs=3, type=int, default=[256, 256, 300])
     parser.add_argument("--intensity_range", nargs=2, type=float, default=[-100, 400])
     parser.add_argument("--normalize_method", type=str, default="zscore",
                        choices=["zscore", "minmax", "robust"])
@@ -83,8 +85,8 @@ def main():
             apply_augmentation=not args.no_augmentation
         )
     
-    # Initialize and run preprocessor
-    preprocessor = DataPreprocessor(config)
+    # Initialize and run preprocessor, passing phase for JIPMER
+    preprocessor = DataPreprocessor(config, phase=args.phase)
     preprocessor.process_dataset(
         dataset_path=args.dataset_path,
         dataset_type=args.dataset_type,
@@ -97,4 +99,10 @@ if __name__ == "__main__":
 
 
 # Example usage 
+
+# MSD dataset
 # python3 run_data_preprocessing.py --dataset_path /home/icmr/Documents/D-Former-Attempt/Data/Task03_Liver_rs --dataset_type medical_decathlon --output_dir data_preprocessed
+
+
+# JIPMER dataset
+# python3 run_data_preprocessing.py --dataset_path /home/icmr/Documents/MultiPhaseSegmentation/SegFormer/JIPMER_DATASET --dataset_type jipmer --output_dir data_preprocessed --phase Portal
