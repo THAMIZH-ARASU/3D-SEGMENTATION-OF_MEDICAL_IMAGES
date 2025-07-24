@@ -43,14 +43,19 @@ class SegmentationTrainer:
             logger=self.logger,
             callbacks=[self.checkpoint_callback, self.early_stopping],
             log_every_n_steps=config.log_every_n_steps,
-            deterministic=True,
-            enable_progress_bar=True,
-            resume_from_checkpoint=config.resume_from_checkpoint
+            deterministic=False,
+            enable_progress_bar=True
         )
 
     def fit(self):
-        self.trainer.fit(self.model, self.train_loader, self.val_loader)
+        if self.config.resume_from_checkpoint:
+            self.trainer.fit(self.model, self.train_loader, self.val_loader, ckpt_path=self.config.resume_from_checkpoint)
+        else:
+            self.trainer.fit(self.model, self.train_loader, self.val_loader)
 
     def test(self):
         if self.test_loader is not None:
-            self.trainer.test(self.model, self.test_loader) 
+            if self.config.resume_from_checkpoint:
+                self.trainer.test(self.model, self.test_loader, ckpt_path=self.config.resume_from_checkpoint)
+            else:
+                self.trainer.test(self.model, self.test_loader) 

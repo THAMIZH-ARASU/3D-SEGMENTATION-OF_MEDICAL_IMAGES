@@ -7,7 +7,7 @@ class PreprocessingConfig:
     """Configuration class for preprocessing parameters"""
     # Spatial parameters
     target_spacing: Tuple[float, float, float] = (1.0, 1.0, 1.0)  # mm
-    target_size: Tuple[int, int, int] = (256, 256, 300)  # voxels
+    target_size: Tuple[int, int, int] = (256, 256, 256)  # voxels
     
     # Intensity parameters
     intensity_range: Tuple[float, float] = (-100, 400)  # HU units for CT

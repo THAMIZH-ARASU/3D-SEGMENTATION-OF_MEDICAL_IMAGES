@@ -1,6 +1,5 @@
 import os
 import torchio as tio
-from torch.utils.data import DataLoader
 from typing import List, Dict, Any
 
 def get_subjects_list(split_dir: str) -> List[Dict[str, Any]]:
@@ -18,7 +17,7 @@ def get_subjects_list(split_dir: str) -> List[Dict[str, Any]]:
                 })
     return subjects
 
-def get_dataloader(data_dir: str, split: str, batch_size: int, num_workers: int = 4, shuffle: bool = False) -> DataLoader:
+def get_dataloader(data_dir: str, split: str, batch_size: int, num_workers: int = 4, shuffle: bool = False):
     split_dir = os.path.join(data_dir, split)
     subjects_list = get_subjects_list(split_dir)
     subjects = [
@@ -29,5 +28,5 @@ def get_dataloader(data_dir: str, split: str, batch_size: int, num_workers: int 
         ) for s in subjects_list
     ]
     dataset = tio.SubjectsDataset(subjects)
-    loader = DataLoader(dataset, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers)
+    loader = tio.SubjectsLoader(dataset, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers)
     return loader

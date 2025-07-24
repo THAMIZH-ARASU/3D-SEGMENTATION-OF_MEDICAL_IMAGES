@@ -13,7 +13,7 @@ class ModelTrainingConfig:
     val_batch_size: int = 2
     num_workers: int = 4
     input_channels: int = 1
-    num_classes: int = 3
+    num_classes: int = 14
 
     # Training
     max_epochs: int = 100

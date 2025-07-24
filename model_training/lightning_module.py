@@ -1,6 +1,7 @@
 import pytorch_lightning as pl
 import torch
-from model_training.losses import DiceCELoss
+import torchio as tio
+from model_training.losses import SegmentationCrossEntropyLoss
 from model_training.optimizers import get_optimizer
 from model_training.metrics import dice_coefficient, accuracy, jaccard_index, boundary_f1_score
 
@@ -9,16 +10,18 @@ class SegmentationLightningModule(pl.LightningModule):
         super().__init__()
         self.model = model
         self.config = config
-        self.loss_fn = DiceCELoss()
+        self.loss_fn = SegmentationCrossEntropyLoss()
         self.save_hyperparameters(config.__dict__)
 
     def forward(self, x):
         return self.model(x)
 
     def training_step(self, batch, batch_idx):
-        x = batch['image'][0] if isinstance(batch['image'], (tuple, list)) else batch['image']
-        y = batch['label'][0] if isinstance(batch['label'], (tuple, list)) else batch['label']
+        x = batch['image'][tio.DATA]
+        y = batch['label'][tio.DATA].squeeze(1)
         logits = self(x)
+        if isinstance(logits, tuple):
+            logits = logits[0]
         loss = self.loss_fn(logits, y)
         dice = dice_coefficient(logits, y, num_classes=self.config.num_classes)
         iou = jaccard_index(logits, y, num_classes=self.config.num_classes)
@@ -32,9 +35,11 @@ class SegmentationLightningModule(pl.LightningModule):
         return loss
 
     def validation_step(self, batch, batch_idx):
-        x = batch['image'][0] if isinstance(batch['image'], (tuple, list)) else batch['image']
-        y = batch['label'][0] if isinstance(batch['label'], (tuple, list)) else batch['label']
+        x = batch['image'][tio.DATA]
+        y = batch['label'][tio.DATA].squeeze(1)
         logits = self(x)
+        if isinstance(logits, tuple):
+            logits = logits[0]
         loss = self.loss_fn(logits, y)
         dice = dice_coefficient(logits, y, num_classes=self.config.num_classes)
         iou = jaccard_index(logits, y, num_classes=self.config.num_classes)
@@ -48,9 +53,11 @@ class SegmentationLightningModule(pl.LightningModule):
         return loss
 
     def test_step(self, batch, batch_idx):
-        x = batch['image'][0] if isinstance(batch['image'], (tuple, list)) else batch['image']
-        y = batch['label'][0] if isinstance(batch['label'], (tuple, list)) else batch['label']
+        x = batch['image'][tio.DATA]
+        y = batch['label'][tio.DATA].squeeze(1)
         logits = self(x)
+        if isinstance(logits, tuple):
+            logits = logits[0]
         loss = self.loss_fn(logits, y)
         dice = dice_coefficient(logits, y, num_classes=self.config.num_classes)
         iou = jaccard_index(logits, y, num_classes=self.config.num_classes)

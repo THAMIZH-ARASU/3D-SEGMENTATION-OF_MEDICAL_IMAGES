@@ -62,7 +62,7 @@ def main():
                        help="Phase for JIPMER dataset (Arterial, Portal, Venous)")
     # Configuration parameters
     parser.add_argument("--target_spacing", nargs=3, type=float, default=[1.0, 1.0, 1.0])
-    parser.add_argument("--target_size", nargs=3, type=int, default=[256, 256, 300])
+    parser.add_argument("--target_size", nargs=3, type=int, default=[256, 256, 256])
     parser.add_argument("--intensity_range", nargs=2, type=float, default=[-100, 400])
     parser.add_argument("--normalize_method", type=str, default="zscore",
                        choices=["zscore", "minmax", "robust"])
@@ -105,4 +105,4 @@ if __name__ == "__main__":
 
 
 # JIPMER dataset
-# python3 run_data_preprocessing.py --dataset_path /home/icmr/Documents/MultiPhaseSegmentation/SegFormer/JIPMER_DATASET --dataset_type jipmer --output_dir data_preprocessed --phase Portal
+# python3 run_data_preprocessing.py --dataset_path /home/icmr/Documents/MultiPhaseSegmentation/JIPMER_Data --dataset_type jipmer --output_dir data_preprocessed --phase Arterial

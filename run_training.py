@@ -5,7 +5,7 @@ from pipelines.model_training_pipeline import run_training_pipeline
 
 def parse_args():
     parser = argparse.ArgumentParser(description="CT Segmentation Training")
-    parser.add_argument('--config', type=str, required=True, help='Path to training config JSON')
+    parser.add_argument('--config', type=str, help='Path to training config JSON (optional)')
     parser.add_argument('--model_name', type=str, help='Model name to use (overrides config)')
     parser.add_argument('--run_name', type=str, help='Run name for logging')
     parser.add_argument('--gpus', type=int, help='Number of GPUs to use')
@@ -17,9 +17,12 @@ def parse_args():
 
 def main():
     args = parse_args()
-    with open(args.config, 'r') as f:
-        config_dict = json.load(f)
-    config = ModelTrainingConfig(**config_dict)
+    if args.config:
+        with open(args.config, 'r') as f:
+            config_dict = json.load(f)
+        config = ModelTrainingConfig(**config_dict)
+    else:
+        config = ModelTrainingConfig()
     # CLI overrides
     if args.model_name:
         config.model_name = args.model_name
@@ -37,3 +40,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# python run_training.py --model_name dformer3d --gpus 1 --run_name my_run

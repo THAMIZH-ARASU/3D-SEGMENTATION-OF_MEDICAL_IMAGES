@@ -3,7 +3,11 @@ import torch.nn.functional as F
 import numpy as np
 from scipy.ndimage import binary_erosion
 
+# All metric functions expect tensors as produced by batch['image'][tio.DATA] and batch['label'][tio.DATA]
+# i.e., (B, C, ...) for images and (B, ...) for labels
+
 def dice_coefficient(preds, targets, num_classes=3, smooth=1e-5):
+    # preds: (B, C, ...), targets: (B, ...)
     preds = torch.argmax(preds, dim=1)
     preds_one_hot = F.one_hot(preds, num_classes).permute(0, 4, 1, 2, 3)
     targets_one_hot = F.one_hot(targets.long(), num_classes).permute(0, 4, 1, 2, 3)
@@ -14,6 +18,7 @@ def dice_coefficient(preds, targets, num_classes=3, smooth=1e-5):
     return dice.mean().item()
 
 def jaccard_index(preds, targets, num_classes=3, smooth=1e-5):
+    # preds: (B, C, ...), targets: (B, ...)
     preds = torch.argmax(preds, dim=1)
     preds_one_hot = F.one_hot(preds, num_classes).permute(0, 4, 1, 2, 3)
     targets_one_hot = F.one_hot(targets.long(), num_classes).permute(0, 4, 1, 2, 3)
@@ -24,12 +29,13 @@ def jaccard_index(preds, targets, num_classes=3, smooth=1e-5):
     return iou.mean().item()
 
 def accuracy(preds, targets):
+    # preds: (B, C, ...), targets: (B, ...)
     preds = torch.argmax(preds, dim=1)
     correct = (preds == targets).float()
     return correct.mean().item()
 
 def boundary_f1_score(preds, targets, num_classes=3, tolerance=1):
-    # Computes the Boundary F1 Score for each class and averages
+    # preds: (B, C, ...), targets: (B, ...)
     preds = torch.argmax(preds, dim=1).cpu().numpy()
     targets = targets.cpu().numpy()
     bf1s = []
