@@ -16,11 +16,9 @@ class CTPreprocessingPipeline:
     def create_transforms(self, is_training: bool = False) -> tio.Compose:
         """Create TorchIO transforms pipeline"""
         transforms = [
-            # Spatial preprocessing
+            tio.ToCanonical(),  # Ensure RAS orientation
             tio.Resample(self.config.target_spacing),
             tio.Resize(self.config.target_size),
-            
-            # Intensity preprocessing
             tio.Clamp(out_min=self.config.intensity_range[0], 
                      out_max=self.config.intensity_range[1]),
         ]
