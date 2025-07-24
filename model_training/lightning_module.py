@@ -18,7 +18,7 @@ class SegmentationLightningModule(pl.LightningModule):
 
     def training_step(self, batch, batch_idx):
         x = batch['image'][tio.DATA]
-        y = batch['label'][tio.DATA].squeeze(1)
+        y = batch['label'][tio.DATA].squeeze(1).long()
         logits = self(x)
         if isinstance(logits, tuple):
             logits = logits[0]
@@ -36,7 +36,7 @@ class SegmentationLightningModule(pl.LightningModule):
 
     def validation_step(self, batch, batch_idx):
         x = batch['image'][tio.DATA]
-        y = batch['label'][tio.DATA].squeeze(1)
+        y = batch['label'][tio.DATA].squeeze(1).long()
         logits = self(x)
         if isinstance(logits, tuple):
             logits = logits[0]
@@ -54,7 +54,7 @@ class SegmentationLightningModule(pl.LightningModule):
 
     def test_step(self, batch, batch_idx):
         x = batch['image'][tio.DATA]
-        y = batch['label'][tio.DATA].squeeze(1)
+        y = batch['label'][tio.DATA].squeeze(1).long()
         logits = self(x)
         if isinstance(logits, tuple):
             logits = logits[0]

@@ -204,3 +204,9 @@ __marimo__/
 
 # Data
 data_preprocessed/
+
+#logs
+logs/
+
+#checkpoints
+checkpoints/
