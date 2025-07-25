@@ -1,4 +1,4 @@
-# CT Scan Segmentation Framework
+# 3D Segmentation of Liver and Tumor
 
 A modular, extensible, and production-ready framework for 3D CT scan segmentation using PyTorch Lightning, TorchIO, and modern deep learning best practices.  
 Supports preprocessing, training, prediction, and evaluation for medical image segmentation tasks.
