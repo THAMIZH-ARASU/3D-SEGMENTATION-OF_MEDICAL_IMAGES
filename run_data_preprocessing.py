@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 import torchio as tio
 
-from cofigs.data_preprocessing_config import PreprocessingConfig
+from configs.data_preprocessing_config import PreprocessingConfig
 from data_preprocessing.data_preprocessor import DataPreprocessor
 
 def create_pytorch_dataset(processed_data_dir: str, split: str = 'train'):

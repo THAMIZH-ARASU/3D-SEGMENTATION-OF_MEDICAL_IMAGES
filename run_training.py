@@ -1,7 +1,10 @@
 import argparse
 import json
-from cofigs.model_training_config import ModelTrainingConfig
+from configs.model_training_config import ModelTrainingConfig
 from pipelines.model_training_pipeline import run_training_pipeline
+import torch
+torch.set_float32_matmul_precision('high')
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="CT Segmentation Training")

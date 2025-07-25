@@ -210,3 +210,6 @@ logs/
 
 #checkpoints
 checkpoints/
+
+#predictions
+predictions/

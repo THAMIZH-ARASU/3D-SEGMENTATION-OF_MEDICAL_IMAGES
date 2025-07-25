@@ -9,8 +9,8 @@ class ModelTrainingConfig:
 
     # Data
     data_dir: str = "data_preprocessed"
-    train_batch_size: int = 2
-    val_batch_size: int = 2
+    train_batch_size: int = 1
+    val_batch_size: int = 1
     num_workers: int = 4
     input_channels: int = 1
     num_classes: int = 14
@@ -18,7 +18,7 @@ class ModelTrainingConfig:
     # Training
     max_epochs: int = 100
     gpus: int = 1
-    precision: int = 16  # for mixed precision
+    precision: str = "16-mixed"  # for mixed precision
     seed: int = 42
     log_every_n_steps: int = 10
     checkpoint_dir: str = "checkpoints"
