@@ -4,6 +4,10 @@ from configs.model_training_config import ModelTrainingConfig
 from pipelines.model_training_pipeline import run_training_pipeline
 import torch
 torch.set_float32_matmul_precision('high')
+from utils.logging_utils import setup_logging
+import logging
+setup_logging()
+logger = logging.getLogger(__name__)
 
 
 def parse_args():

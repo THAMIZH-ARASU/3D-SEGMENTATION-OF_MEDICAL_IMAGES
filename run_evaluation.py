@@ -2,6 +2,10 @@ import argparse
 import json
 from configs.model_evaluation_config import ModelEvaluationConfig
 from pipelines.model_evaluation_pipeline import run_evaluation_pipeline
+from utils.logging_utils import setup_logging
+import logging
+setup_logging()
+logger = logging.getLogger(__name__)
 
 def parse_args():
     parser = argparse.ArgumentParser(description="CT Segmentation Evaluation")

@@ -2,7 +2,10 @@ import os
 import numpy as np
 import nibabel as nib
 import pandas as pd
+import logging
 from model_evaluation.metrics import dice_coefficient, jaccard_index, boundary_f1_score, accuracy
+
+logger = logging.getLogger(__name__)
 
 class Evaluator:
     def __init__(self, config):
@@ -26,10 +29,12 @@ class Evaluator:
         metrics["bf1_whole"] = boundary_f1_score(mask_pred, mask_gt, 1)
         metrics["accuracy_whole"] = accuracy(mask_pred, mask_gt, 1)
         metrics["subject_id"] = subject_id
+        logger.debug(f"Metrics for {subject_id}: {metrics}")
         self.results.append(metrics)
         return metrics
 
     def evaluate(self):
+        logger.info(f"Evaluating predictions in {self.config.pred_dir}")
         pred_files = [f for f in os.listdir(self.config.pred_dir) if f.endswith(self.config.pred_suffix)]
         if self.config.subject_ids:
             pred_files = [f for f in pred_files if any(sid in f for sid in self.config.subject_ids)]
@@ -38,17 +43,20 @@ class Evaluator:
             pred_path = os.path.join(self.config.pred_dir, pred_file)
             gt_path = os.path.join(self.config.gt_dir, f"{subject_id}{self.config.gt_suffix}")
             if not os.path.exists(gt_path):
-                print(f"Warning: GT not found for {subject_id}")
+                logger.warning(f"GT not found for {subject_id}")
                 continue
             self.evaluate_subject(pred_path, gt_path, subject_id)
+        logger.info("Evaluation complete.")
 
     def save_results(self):
         if self.config.save_csv:
             df = pd.DataFrame(self.results)
             df.to_csv(self.config.csv_path, index=False)
+            logger.info(f"Saved evaluation results to {self.config.csv_path}")
 
     def print_summary(self):
         if not self.results:
+            logger.warning("No results to summarize.")
             print("No results to summarize.")
             return
         df = pd.DataFrame(self.results)

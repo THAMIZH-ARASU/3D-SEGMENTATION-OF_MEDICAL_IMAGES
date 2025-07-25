@@ -2,6 +2,10 @@ import argparse
 import json
 from configs.model_prediction_config import ModelPredictionConfig
 from pipelines.model_prediction_pipeline import run_prediction_pipeline
+from utils.logging_utils import setup_logging
+import logging
+setup_logging()
+logger = logging.getLogger(__name__)
 
 def parse_args():
     parser = argparse.ArgumentParser(description="CT Segmentation Prediction")
