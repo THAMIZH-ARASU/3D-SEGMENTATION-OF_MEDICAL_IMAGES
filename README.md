@@ -171,7 +171,16 @@ python run_evaluation.py --pred_dir predictions --gt_dir data_preprocessed/test 
 
 ## Citation
 
-Yet to be filled 
+```
+@article{dformer,
+  title={D-former: A u-shaped dilated transformer for 3d medical image segmentation},
+  author={Wu, Yixuan and Liao, Kuanlun and Chen, Jintai and Wang, Jinhong and Chen, Danny Z and Gao, Honghao and Wu, Jian},
+  journal={Neural Computing and Applications},
+  pages={1--14},
+  year={2022},
+  publisher={Springer}
+}
+ ```
 
 ---
 
