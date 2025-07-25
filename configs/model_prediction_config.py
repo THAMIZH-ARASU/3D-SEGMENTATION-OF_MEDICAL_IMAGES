@@ -15,6 +15,7 @@ class ModelPredictionConfig:
     num_workers: int = 2
     input_channels: int = 1
     num_classes: int = 14
+    target_label: Optional[int] = None  # If set, map binary output to this label
 
     # Device
     gpus: int = 1

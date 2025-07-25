@@ -23,7 +23,13 @@ class Predictor:
                 logits = self.lightning_module(x)
                 if isinstance(logits, tuple):
                     logits = logits[0]
+                # If binary (tumor only), select only background and target_label channels
+                if hasattr(self.config, 'target_label') and self.config.target_label is not None:
+                    logits = logits[:, [0, self.config.target_label], ...]
                 pred = torch.argmax(logits, dim=1).cpu().numpy()
+                # If binary, map 1 -> target_label, 0 -> 0
+                if hasattr(self.config, 'target_label') and self.config.target_label is not None:
+                    pred = np.where(pred == 1, self.config.target_label, 0)
                 # Save prediction as NIfTI
                 affine = batch['image'][tio.AFFINE][0]
                 subject_id = subject['subject_id']

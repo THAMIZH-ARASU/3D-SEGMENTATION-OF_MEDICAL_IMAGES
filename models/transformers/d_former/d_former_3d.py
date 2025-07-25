@@ -3,7 +3,7 @@ from torch import nn
 import torch
 import torch.nn.functional
 import collections
-from timm.models.layers import trunc_normal_
+from timm.layers import trunc_normal_
 
 from models.transformers.d_former.basic_layer import BasicLayer
 from models.transformers.d_former.basic_layer_up import BasicLayer_up

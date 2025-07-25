@@ -1,5 +1,5 @@
 import importlib
-from cofigs.model_training_config import ModelTrainingConfig
+from configs.model_training_config import ModelTrainingConfig
 from pipelines.data_loading_pipeline import get_dataloader
 from model_training.trainer import SegmentationTrainer
 from model_training.lightning_module import SegmentationLightningModule
@@ -8,6 +8,7 @@ from model_training.lightning_module import SegmentationLightningModule
 def get_model_class(model_name: str):
     registry = {
         'dformer3d': 'models.transformers.d_former.network.SegNetwork',
+        'res_trans_unet': 'models.transformers.res_trans_unet.network.ResTransUNet',
         # 'unet3d': 'models.cnns.unet_3d.UNet3D',  # Example for future
     }
     if model_name not in registry:

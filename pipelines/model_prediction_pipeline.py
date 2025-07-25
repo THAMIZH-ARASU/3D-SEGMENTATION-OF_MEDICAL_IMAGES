@@ -8,6 +8,7 @@ from model_training.lightning_module import SegmentationLightningModule
 def get_model_class(model_name: str):
     registry = {
         'dformer3d': 'models.transformers.d_former.network.SegNetwork',
+        'res_trans_unet': 'models.transformers.res_trans_unet.network.ResTransUNet',
         # 'unet3d': 'models.cnns.unet_3d.UNet3D',
     }
     if model_name not in registry:

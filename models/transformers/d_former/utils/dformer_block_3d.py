@@ -5,7 +5,7 @@ import torch.nn.functional as F
 import torch.utils.checkpoint as checkpoint
 from functools import reduce
 from operator import mul
-from timm.models.layers import DropPath, to_3tuple
+from timm.layers import DropPath, to_3tuple
 
 from models.transformers.d_former.utils.attention import Attention
 from models.transformers.d_former.utils.config import NEG_INF

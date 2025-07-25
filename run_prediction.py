@@ -17,6 +17,7 @@ def parse_args():
     parser.add_argument('--gpus', type=int, help='Number of GPUs to use')
     parser.add_argument('--device', type=str, help='Device to use (cuda or cpu)')
     parser.add_argument('--model_name', type=str, help='Model name to use')
+    parser.add_argument('--target_label', type=int, help='Unique value for the target class (e.g., tumor=2)')
     args = parser.parse_args()
     return args
 
@@ -43,6 +44,8 @@ def main():
         config.device = args.device
     if args.model_name:
         config.model_name = args.model_name
+    if args.target_label is not None:
+        config.target_label = args.target_label
     run_prediction_pipeline(config)
 
 if __name__ == "__main__":
