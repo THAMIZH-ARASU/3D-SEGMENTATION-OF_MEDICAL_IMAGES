@@ -49,6 +49,9 @@ class SegFormerLightningModule(pl.LightningModule):
         y = y.squeeze(1)
         logits = self(x)
         loss = self.compute_loss(logits, y)
+        # Resize logits for metrics
+        if logits.shape[-2:] != y.shape[-2:]:
+            logits = F.interpolate(logits, size=y.shape[-2:], mode='bilinear', align_corners=False)
         dice = dice_coefficient(logits, y, num_classes=self.num_classes)
         iou = jaccard_index(logits, y, num_classes=self.num_classes)
         bf1 = boundary_f1_score(logits, y, num_classes=self.num_classes)
@@ -69,6 +72,8 @@ class SegFormerLightningModule(pl.LightningModule):
         y = y.squeeze(1)
         logits = self(x)
         loss = self.compute_loss(logits, y)
+        if logits.shape[-2:] != y.shape[-2:]:
+            logits = F.interpolate(logits, size=y.shape[-2:], mode='bilinear', align_corners=False)
         dice = dice_coefficient(logits, y, num_classes=self.num_classes)
         iou = jaccard_index(logits, y, num_classes=self.num_classes)
         bf1 = boundary_f1_score(logits, y, num_classes=self.num_classes)
@@ -89,6 +94,8 @@ class SegFormerLightningModule(pl.LightningModule):
         y = y.squeeze(1)
         logits = self(x)
         loss = self.compute_loss(logits, y)
+        if logits.shape[-2:] != y.shape[-2:]:
+            logits = F.interpolate(logits, size=y.shape[-2:], mode='bilinear', align_corners=False)
         dice = dice_coefficient(logits, y, num_classes=self.num_classes)
         iou = jaccard_index(logits, y, num_classes=self.num_classes)
         bf1 = boundary_f1_score(logits, y, num_classes=self.num_classes)
