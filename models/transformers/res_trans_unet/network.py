@@ -44,6 +44,8 @@ class ResTransUNet(nn.Module):
         num_patches = self.patch_embed.num_patches
         patches_resolution = self.patch_embed.patches_resolution
         self.patches_resolution = patches_resolution
+        # DEBUG: Print the actual patches_resolution
+        print(f"[ResTransUNet] patches_resolution: {patches_resolution}")
 
         # Absolute position embedding
         if self.ape:
@@ -63,7 +65,8 @@ class ResTransUNet(nn.Module):
             layer = BasicLayer(
                 dim=int(embed_dim * 2 ** i_layer),
                 input_resolution=(patches_resolution[0] // (2 ** i_layer),
-                                  patches_resolution[1] // (2 ** i_layer)),
+                                  patches_resolution[1] // (2 ** i_layer),
+                                  patches_resolution[2] // (2 ** i_layer)),
                 depth=depths[i_layer],
                 num_heads=num_heads[i_layer],
                 window_size=window_size,
@@ -81,10 +84,10 @@ class ResTransUNet(nn.Module):
         # =====================================================================
         # CNN Encoder Path
         # =====================================================================
-        self.maxpool1 = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.maxpool2 = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.maxpool3 = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.maxpool4 = nn.MaxPool2d(kernel_size=2, stride=2)
+        self.maxpool1 = nn.MaxPool3d(kernel_size=2, stride=2)
+        self.maxpool2 = nn.MaxPool3d(kernel_size=2, stride=2)
+        self.maxpool3 = nn.MaxPool3d(kernel_size=2, stride=2)
+        self.maxpool4 = nn.MaxPool3d(kernel_size=2, stride=2)
 
         self.conv1 = ResidualSEBlock(in_chans, self.filters[0])
         self.conv2 = ResidualSEBlock(self.filters[0], self.filters[1])
@@ -95,26 +98,35 @@ class ResTransUNet(nn.Module):
         # =====================================================================
         # Cross-Modal Interaction Modules
         # =====================================================================
-        self.interaction2 = CrossModalInteraction(embed_dim, self.filters[1])
-        self.interaction3 = CrossModalInteraction(embed_dim * 2, self.filters[2])
-        self.interaction4 = CrossModalInteraction(embed_dim * 4, self.filters[3])
-        self.interaction5 = CrossModalInteraction(embed_dim * 8, self.filters[4])
+        # Use the correct Swin feature spatial shape for each stage
+        pr = self.patches_resolution
+        self.interaction2 = CrossModalInteraction(
+            embed_dim, self.filters[1]
+        )
+        self.interaction3 = CrossModalInteraction(
+            embed_dim * 2, self.filters[2]
+        )
+        self.interaction4 = CrossModalInteraction(
+            embed_dim * 4, self.filters[3]
+        )
+        self.interaction5 = CrossModalInteraction(
+            embed_dim * 8, self.filters[4]
+        )
 
         # =====================================================================
         # Bridge and Decoder
         # =====================================================================
         # Swin feature processing
         self.swin_upconv = nn.Sequential(
-            nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False),
-            nn.Conv2d(self.num_features, self.filters[4], kernel_size=3, stride=1, padding=1, bias=True),
-            nn.BatchNorm2d(self.filters[4]),
+            nn.Upsample(scale_factor=2, mode='trilinear', align_corners=False),
+            nn.Conv3d(self.num_features, self.filters[4], kernel_size=3, stride=1, padding=1, bias=True),
+            nn.BatchNorm3d(self.filters[4]),
             nn.LeakyReLU(inplace=True)
         )
-        
         # Feature fusion
         self.feature_fusion = nn.Sequential(
-            nn.Conv2d(self.filters[4] * 2, self.filters[4], kernel_size=3, stride=1, padding=1, bias=True),
-            nn.BatchNorm2d(self.filters[4]),
+            nn.Conv3d(self.filters[4] * 2, self.filters[4], kernel_size=3, stride=1, padding=1, bias=True),
+            nn.BatchNorm3d(self.filters[4]),
             nn.LeakyReLU(inplace=True)
         )
 
@@ -136,7 +148,7 @@ class ResTransUNet(nn.Module):
         self.up_conv2 = ResidualSEBlock(self.filters[1], self.filters[0])
 
         # Final output layer
-        self.final_conv = nn.Conv2d(self.filters[0], num_classes, kernel_size=1, stride=1, padding=0)
+        self.final_conv = nn.Conv3d(self.filters[0], num_classes, kernel_size=1, stride=1, padding=0)
 
         # Initialize weights
         self.apply(self._init_weights)
@@ -150,11 +162,11 @@ class ResTransUNet(nn.Module):
         elif isinstance(m, nn.LayerNorm):
             nn.init.constant_(m.bias, 0)
             nn.init.constant_(m.weight, 1.0)
-        elif isinstance(m, nn.Conv2d):
+        elif isinstance(m, nn.Conv3d):
             nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
             if m.bias is not None:
                 nn.init.constant_(m.bias, 0)
-        elif isinstance(m, nn.BatchNorm2d):
+        elif isinstance(m, nn.BatchNorm3d):
             nn.init.constant_(m.weight, 1.0)
             nn.init.constant_(m.bias, 0)
 
@@ -207,6 +219,9 @@ class ResTransUNet(nn.Module):
         # Swin Transformer Path with Cross-Modal Interactions
         # =====================================================================
         swin_features = self.forward_swin_features(x)
+        # DEBUG: Print Swin feature shapes at each stage
+        for i, feat in enumerate(swin_features):
+            print(f"[ResTransUNet] swin_features[{i}].shape: {feat.shape}")
 
         # Interact with CNN features at different scales
         e2 = self.interaction2(swin_features[0], e2)  # 112x112

@@ -4,9 +4,9 @@ import torch.nn as nn
 import torch.utils.checkpoint as checkpoint
 
 class BasicLayer(nn.Module):
-    """A basic Swin Transformer layer for one stage."""
+    """A basic Swin Transformer layer for one stage (3D)."""
     
-    def __init__(self, dim: int, input_resolution: Tuple[int, int], depth: int, 
+    def __init__(self, dim: int, input_resolution: Tuple[int, int, int], depth: int, 
                  num_heads: int, window_size: int, mlp_ratio: float = 4., 
                  qkv_bias: bool = True, qk_scale: Optional[float] = None, 
                  drop: float = 0., attn_drop: float = 0., drop_path: float = 0., 

@@ -2,7 +2,7 @@ from typing import Dict, Tuple
 import torch
 import torchio as tio
 
-from cofigs.data_preprocessing_config import PreprocessingConfig
+from configs.data_preprocessing_config import PreprocessingConfig
 from data_preprocessing.intensity_normalizer import IntensityNormalizer
 from data_preprocessing.subject_metadata import SubjectMetadata
 

@@ -6,7 +6,7 @@ from typing import Dict, List, Tuple
 
 from sklearn.model_selection import train_test_split
 from tqdm import tqdm
-from cofigs.data_preprocessing_config import PreprocessingConfig
+from configs.data_preprocessing_config import PreprocessingConfig
 from data_preprocessing.handler import DatasetHandler
 from data_preprocessing.jipmer_handler import JIPMERHandler
 from data_preprocessing.msd_handler import MedicalDecathlonHandler
