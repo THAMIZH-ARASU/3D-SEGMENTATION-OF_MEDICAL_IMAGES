@@ -56,3 +56,5 @@ if __name__ == "__main__":
 
 # Example usage: (For tumor only)
 # python run_training.py --model_name dformer3d --gpus 1 --run_name tumor_only --target_label 2
+
+# python run_training.py --model_name segformer --gpus 1 --run_name segformer_run --target_label 2
