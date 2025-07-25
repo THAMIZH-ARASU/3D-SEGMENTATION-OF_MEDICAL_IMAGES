@@ -19,6 +19,7 @@ def parse_args():
     parser.add_argument('--max_epochs', type=int, help='Max epochs')
     parser.add_argument('--learning_rate', type=float, help='Learning rate')
     parser.add_argument('--resume_from_checkpoint', type=str, help='Path to checkpoint to resume from')
+    parser.add_argument('--target_label', type=int, help='Unique value for the target class (e.g., tumor=2)')
     args = parser.parse_args()
     return args
 
@@ -43,9 +44,15 @@ def main():
         config.learning_rate = args.learning_rate
     if args.resume_from_checkpoint:
         config.resume_from_checkpoint = args.resume_from_checkpoint
+    if args.target_label is not None:
+        config.target_label = args.target_label
     run_training_pipeline(config)
 
 if __name__ == "__main__":
     main()
 
+# Example usage: (For both liver and tumor)
 # python run_training.py --model_name dformer3d --gpus 1 --run_name my_run
+
+# Example usage: (For tumor only)
+# python run_training.py --model_name dformer3d --gpus 1 --run_name tumor_only --target_label 2

@@ -210,6 +210,7 @@ logs/
 
 #checkpoints
 checkpoints/
+checkpints_both/
 
 #predictions
 predictions/
