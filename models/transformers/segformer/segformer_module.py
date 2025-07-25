@@ -23,7 +23,9 @@ class SegFormerLightningModule(pl.LightningModule):
             self.class_weights = None
 
     def forward(self, x):
-        # SegFormer expects 3-channel input, but we have 1-channel CT
+        # Ensure x is 4D (B, C, H, W)
+        if x.dim() == 3:
+            x = x.unsqueeze(0)
         if x.shape[1] == 1:
             x = x.repeat(1, 3, 1, 1)
         outputs = self.model(pixel_values=x)
