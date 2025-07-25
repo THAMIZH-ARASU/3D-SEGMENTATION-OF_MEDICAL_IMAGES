@@ -14,7 +14,7 @@ class ASPP(nn.Module):
         # 1x1 convolution
         self.convs.append(nn.Sequential(
             nn.Conv3d(in_channels, out_channels, 1, bias=False),
-            nn.BatchNorm3d(out_channels),
+            nn.GroupNorm(num_groups=min(8, out_channels), num_channels=out_channels),
             nn.ReLU(inplace=True)
         ))
         
@@ -22,7 +22,7 @@ class ASPP(nn.Module):
         for rate in rates[1:]:
             self.convs.append(nn.Sequential(
                 nn.Conv3d(in_channels, out_channels, 3, padding=rate, dilation=rate, bias=False),
-                nn.BatchNorm3d(out_channels),
+                nn.GroupNorm(num_groups=min(8, out_channels), num_channels=out_channels),
                 nn.ReLU(inplace=True)
             ))
         
@@ -30,14 +30,14 @@ class ASPP(nn.Module):
         self.global_avg_pool = nn.Sequential(
             nn.AdaptiveAvgPool3d((1, 1, 1)),
             nn.Conv3d(in_channels, out_channels, 1, bias=False),
-            nn.BatchNorm3d(out_channels),
+            nn.GroupNorm(num_groups=min(8, out_channels), num_channels=out_channels),
             nn.ReLU(inplace=True)
         )
         
         # Final projection
         self.project = nn.Sequential(
             nn.Conv3d(len(rates) * out_channels + out_channels, out_channels, 1, bias=False),
-            nn.BatchNorm3d(out_channels),
+            nn.GroupNorm(num_groups=min(8, out_channels), num_channels=out_channels),
             nn.ReLU(inplace=True),
             nn.Dropout3d(0.1)
         )

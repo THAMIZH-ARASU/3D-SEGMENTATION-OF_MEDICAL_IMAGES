@@ -101,16 +101,16 @@ class ResTransUNet(nn.Module):
         # Use the correct Swin feature spatial shape for each stage
         pr = self.patches_resolution
         self.interaction2 = CrossModalInteraction(
-            embed_dim, self.filters[1]
+            192, self.filters[1]
         )
         self.interaction3 = CrossModalInteraction(
-            embed_dim * 2, self.filters[2]
+            384, self.filters[2]
         )
         self.interaction4 = CrossModalInteraction(
-            embed_dim * 4, self.filters[3]
+            768, self.filters[3]
         )
         self.interaction5 = CrossModalInteraction(
-            embed_dim * 8, self.filters[4]
+            768, self.filters[4]
         )
 
         # =====================================================================
@@ -234,11 +234,19 @@ class ResTransUNet(nn.Module):
         # =====================================================================
         # Final Swin features: B, L, C -> B, C, H, W
         B, L, C = swin_features[-1].shape
-        swin_spatial = swin_features[-1].view(B, 7, 7, C).permute(0, 3, 1, 2)  # 7x7x768
+        D_s = H_s = W_s = int(round(L ** (1/3)))
+        assert D_s * H_s * W_s == L, f"Cannot infer 3D shape from L={L}"
+        swin_spatial = swin_features[-1].view(B, D_s, H_s, W_s, C).permute(0, 4, 1, 2, 3)  # [B, C, D, H, W]
         
         # Upsample and process Swin features
-        swin_processed = self.swin_upconv(swin_spatial)  # 7x7 -> 14x14, 768 -> 512
-
+        swin_processed = self.swin_upconv(swin_spatial)  # [B, C, D, H, W]
+        # DEBUG: Print shapes before fusion
+        print(f"e5 shape: {e5.shape}, swin_processed shape: {swin_processed.shape}")
+        # Match spatial size for concatenation
+        if swin_processed.shape[2:] != e5.shape[2:]:
+            swin_processed = torch.nn.functional.interpolate(
+                swin_processed, size=e5.shape[2:], mode='trilinear', align_corners=False
+            )
         # =====================================================================
         # Feature Fusion and Bridge
         # =====================================================================
