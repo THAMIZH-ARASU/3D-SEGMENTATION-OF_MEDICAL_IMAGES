@@ -1,3 +1,14 @@
+"""
+data_preprocessor.py
+
+Main orchestrator for CT scan data preprocessing. Handles dataset validation, splitting, transformation, normalization, and saving of preprocessed images, labels, and metadata for segmentation tasks. Supports both Medical Segmentation Decathlon (MSD) and JIPMER datasets.
+
+Key Features:
+- Validates dataset structure and format.
+- Splits data into train/val/test sets.
+- Applies spatial and intensity preprocessing, normalization, and augmentation.
+- Saves preprocessed data and metadata for downstream ML workflows.
+"""
 from dataclasses import asdict
 import json
 from pathlib import Path
@@ -15,15 +26,38 @@ import numpy as np
 
 
 class DataPreprocessor:
-    """Main data preprocessing orchestrator"""
+    """
+    Main data preprocessing orchestrator for CT scan segmentation datasets.
+
+    Attributes:
+        config (PreprocessingConfig): Configuration for preprocessing.
+        phase (str): Imaging phase (e.g., 'Arterial') for JIPMER datasets.
+        pipeline (CTPreprocessingPipeline): Pipeline for spatial/intensity transforms.
+    """
     
     def __init__(self, config: PreprocessingConfig, phase: str = "Arterial"):
+        """
+        Initialize the DataPreprocessor.
+
+        Args:
+            config (PreprocessingConfig): Preprocessing configuration.
+            phase (str): Imaging phase for JIPMER datasets.
+        """
         self.config = config
         self.phase = phase
         self.pipeline = CTPreprocessingPipeline(config)
         
     def get_dataset_handler(self, dataset_path: str, dataset_type: str) -> DatasetHandler:
-        """Factory method to get appropriate dataset handler"""
+        """
+        Factory method to get the appropriate dataset handler for the given dataset type.
+
+        Args:
+            dataset_path (str): Path to the dataset.
+            dataset_type (str): Type of dataset ('medical_decathlon' or 'jipmer').
+
+        Returns:
+            DatasetHandler: Handler for the specified dataset type.
+        """
         if dataset_type == "medical_decathlon":
             return MedicalDecathlonHandler(dataset_path)
         elif dataset_type == "jipmer":
@@ -32,7 +66,15 @@ class DataPreprocessor:
             raise ValueError(f"Unknown dataset type: {dataset_type}")
     
     def split_dataset(self, subjects: List[Dict[str, str]]) -> Tuple[List, List, List]:
-        """Split dataset into train/val/test"""
+        """
+        Split the dataset into train, validation, and test sets.
+
+        Args:
+            subjects (List[Dict[str, str]]): List of subject metadata dicts.
+
+        Returns:
+            Tuple[List, List, List]: Train, validation, and test subject lists.
+        """
         train_subjects, temp_subjects = train_test_split(
             subjects, test_size=(1 - self.config.train_ratio), random_state=42
         )
@@ -45,7 +87,14 @@ class DataPreprocessor:
         return train_subjects, val_subjects, test_subjects
     
     def process_dataset(self, dataset_path: str, dataset_type: str, output_dir: str):
-        """Process entire dataset"""
+        """
+        Process the entire dataset: validate, split, preprocess, and save data and metadata.
+
+        Args:
+            dataset_path (str): Path to the dataset.
+            dataset_type (str): Type of dataset ('medical_decathlon' or 'jipmer').
+            output_dir (str): Directory to save preprocessed data.
+        """
         print(f"Processing {dataset_type} dataset from {dataset_path}")
         
         # Initialize dataset handler
@@ -127,7 +176,14 @@ class DataPreprocessor:
         print(f"Test: {len(all_metadata['test'])} subjects")
     
     def save_preprocessing_info(self, output_path: Path, metadata: Dict, config: PreprocessingConfig):
-        """Save preprocessing metadata and configuration"""
+        """
+        Save preprocessing configuration, metadata, and a human-readable summary.
+
+        Args:
+            output_path (Path): Output directory.
+            metadata (Dict): Metadata for all splits.
+            config (PreprocessingConfig): Preprocessing configuration.
+        """
         # Save configuration
         config_path = output_path / "preprocessing_config.json"
         with open(config_path, 'w') as f:

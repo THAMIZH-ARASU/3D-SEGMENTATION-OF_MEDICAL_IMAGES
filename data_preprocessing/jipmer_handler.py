@@ -1,3 +1,8 @@
+"""
+jipmer_handler.py
+
+Handler for the JIPMER CT scan dataset format, supporting multiple imaging phases (Arterial, Portal, Venous). Extracts subject lists and validates dataset structure for preprocessing pipelines.
+"""
 from typing import Dict, List
 
 from data_preprocessing.handler import DatasetHandler
@@ -9,9 +14,25 @@ PHASE_SUFFIXES = {
 }
 
 class JIPMERHandler(DatasetHandler):
-    """Handler for JIPMER dataset with phase support (Arterial, Portal, Venous)"""
+    """
+    Handler for JIPMER dataset with phase support (Arterial, Portal, Venous).
+
+    Attributes:
+        phase (str): Imaging phase (e.g., 'Arterial').
+        phase_suffix (str): Suffix for phase-specific files.
+        images_dir (Path): Directory for phase images.
+        liver_dir (Path): Directory for liver masks.
+        tumor_dir (Path): Directory for tumor masks.
+    """
     
     def __init__(self, dataset_path: str, phase: str = "Arterial"):
+        """
+        Initialize the JIPMERHandler for a specific phase.
+
+        Args:
+            dataset_path (str): Path to the dataset root.
+            phase (str): Imaging phase ('Arterial', 'Portal', 'Venous').
+        """
         super().__init__(dataset_path, "jipmer")
         if phase not in PHASE_SUFFIXES:
             raise ValueError(f"Unknown phase: {phase}. Must be one of {list(PHASE_SUFFIXES.keys())}")
@@ -22,7 +43,12 @@ class JIPMERHandler(DatasetHandler):
         self.tumor_dir = self.dataset_path / f"niigz tumor/{phase} Phase"
         
     def validate_dataset(self) -> bool:
-        """Validate JIPMER dataset structure"""
+        """
+        Validate the JIPMER dataset structure for the selected phase.
+
+        Returns:
+            bool: True if all required directories exist, False otherwise.
+        """
         required_dirs = [self.images_dir, self.liver_dir, self.tumor_dir]
         for dir_path in required_dirs:
             if not dir_path.exists():
@@ -31,7 +57,12 @@ class JIPMERHandler(DatasetHandler):
         return True
         
     def get_subject_list(self) -> List[Dict[str, str]]:
-        """Get subject list for JIPMER format and selected phase"""
+        """
+        Get subject list for JIPMER format and selected phase.
+
+        Returns:
+            List[Dict[str, str]]: List of subject metadata dicts with image and mask paths.
+        """
         subjects = []
         suffix = self.phase_suffix
         # Dicom files: Dliver1A.nii, Dliver2A.nii, ...

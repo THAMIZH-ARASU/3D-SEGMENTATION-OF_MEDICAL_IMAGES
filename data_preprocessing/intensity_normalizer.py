@@ -1,13 +1,29 @@
+"""
+intensity_normalizer.py
+
+Implements intensity normalization strategies for CT scan images, including z-score, min-max, and robust normalization. Used in preprocessing pipelines to standardize image intensities for segmentation models.
+"""
 from typing import Dict, Optional, Tuple
 import torch
 
 
 class IntensityNormalizer:
-    """Handle different intensity normalization methods"""
+    """
+    Handles different intensity normalization methods for CT scan images.
+    """
     
     @staticmethod
     def zscore_normalize(image: torch.Tensor, mask: Optional[torch.Tensor] = None) -> Tuple[torch.Tensor, Dict[str, float]]:
-        """Z-score normalization"""
+        """
+        Apply z-score normalization to the image.
+
+        Args:
+            image (torch.Tensor): Input image tensor.
+            mask (Optional[torch.Tensor]): Optional mask to restrict normalization to foreground.
+
+        Returns:
+            Tuple[torch.Tensor, Dict[str, float]]: Normalized image and statistics (mean, std).
+        """
         if mask is not None:
             masked_values = image[mask > 0]
             mean_val = masked_values.mean()
@@ -22,7 +38,16 @@ class IntensityNormalizer:
     
     @staticmethod
     def minmax_normalize(image: torch.Tensor, intensity_range: Tuple[float, float]) -> Tuple[torch.Tensor, Dict[str, float]]:
-        """Min-max normalization with clipping"""
+        """
+        Apply min-max normalization with intensity clipping.
+
+        Args:
+            image (torch.Tensor): Input image tensor.
+            intensity_range (Tuple[float, float]): (min, max) intensity values for clipping.
+
+        Returns:
+            Tuple[torch.Tensor, Dict[str, float]]: Normalized image and statistics (min, max).
+        """
         min_val, max_val = intensity_range
         clipped = torch.clamp(image, min_val, max_val)
         normalized = (clipped - min_val) / (max_val - min_val)
@@ -31,7 +56,16 @@ class IntensityNormalizer:
     
     @staticmethod
     def robust_normalize(image: torch.Tensor, mask: Optional[torch.Tensor] = None) -> Tuple[torch.Tensor, Dict[str, float]]:
-        """Robust normalization using percentiles"""
+        """
+        Apply robust normalization using percentiles (1st and 99th).
+
+        Args:
+            image (torch.Tensor): Input image tensor.
+            mask (Optional[torch.Tensor]): Optional mask to restrict normalization to foreground.
+
+        Returns:
+            Tuple[torch.Tensor, Dict[str, float]]: Normalized image and statistics (p01, p99).
+        """
         if mask is not None:
             masked_values = image[mask > 0]
         else:
