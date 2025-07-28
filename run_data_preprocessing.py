@@ -51,7 +51,7 @@ def main():
     parser.add_argument("--dataset_path", type=str, required=True,
                        help="Path to dataset directory")
     parser.add_argument("--dataset_type", type=str, required=True,
-                       choices=["medical_decathlon", "jipmer"],
+                       choices=["medical_decathlon", "jipmer", "lits"],
                        help="Type of dataset")
     parser.add_argument("--output_dir", type=str, required=True,
                        help="Output directory for processed data")
@@ -106,3 +106,6 @@ if __name__ == "__main__":
 
 # JIPMER dataset
 # python3 run_data_preprocessing.py --dataset_path /home/icmr/Documents/MultiPhaseSegmentation/JIPMER_Data --dataset_type jipmer --output_dir data_preprocessed --phase Arterial
+
+# LiTS dataset
+# python3 run_data_preprocessing.py --dataset_path /path/to/lits/dataset --dataset_type lits --output_dir data_preprocessed

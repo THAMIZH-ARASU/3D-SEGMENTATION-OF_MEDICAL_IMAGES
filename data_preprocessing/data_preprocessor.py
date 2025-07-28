@@ -20,6 +20,7 @@ from tqdm import tqdm
 from configs.data_preprocessing_config import PreprocessingConfig
 from data_preprocessing.handler import DatasetHandler
 from data_preprocessing.jipmer_handler import JIPMERHandler
+from data_preprocessing.lits_handler import LiTSHandler
 from data_preprocessing.msd_handler import MedicalDecathlonHandler
 from pipelines.data_preprocessing_pipeline import CTPreprocessingPipeline
 import numpy as np
@@ -53,7 +54,7 @@ class DataPreprocessor:
 
         Args:
             dataset_path (str): Path to the dataset.
-            dataset_type (str): Type of dataset ('medical_decathlon' or 'jipmer').
+            dataset_type (str): Type of dataset ('medical_decathlon', 'jipmer', or 'lits').
 
         Returns:
             DatasetHandler: Handler for the specified dataset type.
@@ -62,6 +63,8 @@ class DataPreprocessor:
             return MedicalDecathlonHandler(dataset_path)
         elif dataset_type == "jipmer":
             return JIPMERHandler(dataset_path, phase=self.phase)
+        elif dataset_type == "lits":
+            return LiTSHandler(dataset_path)
         else:
             raise ValueError(f"Unknown dataset type: {dataset_type}")
     

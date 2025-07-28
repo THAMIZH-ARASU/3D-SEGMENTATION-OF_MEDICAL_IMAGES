@@ -1,6 +1,6 @@
 # Data Preprocessing Module
 
-This module provides tools and pipelines for preprocessing CT scan datasets for segmentation tasks. It supports both the Medical Segmentation Decathlon (MSD) and JIPMER dataset formats, and outputs preprocessed images, labels, and metadata for downstream machine learning workflows.
+This module provides tools and pipelines for preprocessing CT scan datasets for segmentation tasks. It supports the Medical Segmentation Decathlon (MSD), JIPMER, and LiTS dataset formats, and outputs preprocessed images, labels, and metadata for downstream machine learning workflows.
 
 ## Main Components
 
@@ -8,13 +8,14 @@ This module provides tools and pipelines for preprocessing CT scan datasets for 
 - **handler.py**: Base class for dataset handlers.
 - **msd_handler.py**: Handler for Medical Decathlon datasets.
 - **jipmer_handler.py**: Handler for JIPMER datasets.
+- **lits_handler.py**: Handler for LiTS datasets.
 - **intensity_normalizer.py**: Implements intensity normalization methods (z-score, min-max, robust).
 - **subject_metadata.py**: Dataclass for storing subject metadata.
 - **pipelines/data_preprocessing_pipeline.py**: Main pipeline for spatial and intensity preprocessing, augmentation, and metadata extraction.
 
 ## Features
 
-- **Supports multiple dataset formats** (MSD, JIPMER)
+- **Supports multiple dataset formats** (MSD, JIPMER, LiTS)
 - **Spatial preprocessing**: Resampling, resizing
 - **Intensity preprocessing**: Clipping, normalization
 - **Data augmentation** (optional, for training)
@@ -31,7 +32,7 @@ Run the preprocessing pipeline with:
 ```bash
 python3 run_data_preprocessing.py \
   --dataset_path /path/to/dataset \
-  --dataset_type [medical_decathlon|jipmer] \
+  --dataset_type [medical_decathlon|jipmer|lits] \
   --output_dir data_preprocessed \
   [--config /path/to/config.json]
 ```
@@ -64,6 +65,9 @@ You can specify preprocessing parameters via command-line arguments or a JSON co
   - `images/`: Input images (`.nii.gz`)
   - `liver_masks/`: Liver masks (`.nii.gz`)
   - `tumor_masks/`: Tumor masks (`.nii.gz`)
+- **LiTS Format**:
+  - `volumes/`: CT volume files (`volume-0.nii`, `volume-1.nii`, etc.)
+  - `segmentations/`: Segmentation annotation files (`segmentation-0.nii`, `segmentation-1.nii`, etc.)
 
 ## Output Structure
 
