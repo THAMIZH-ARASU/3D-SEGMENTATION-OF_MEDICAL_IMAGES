@@ -79,8 +79,16 @@ CT-SCAN-SEGMENTATION/
 
 ## Dataset
 1. **Medical Segmentation Decathlon**:
+   All data will be made available online with a permissive copyright-license (CC-BY-SA 4.0), allowing for data to be shared, distributed and improved upon. All data has been labeled and verified by an expert human rater, and with the best effort to mimic the accuracy required for clinical use.
+   Link: http://medicaldecathlon.com/
 2. **Jawaharlal Institute of Postgraduate Medical Education and Research**:
-
+   Data of 25 patients with annotations of Liver, Tumor, Hepatic Artery, Hepatic Veins and Portal Veins in 3 Phases (Arterial, Portal, Venous) as NifTi Volumes
+   Link: Not for General Use
+3. **LiTS Dataset: **
+   This dataset was extracted from LiTS – Liver Tumor Segmentation Challenge (LiTS17) organised in conjunction with ISBI 2017 and MICCAI 2017.The liver is a common site of primary or secondary tumor development.
+   Link:
+       Part 1: https://www.kaggle.com/datasets/andrewmvd/liver-tumor-segmentation
+       Part 2: https://www.kaggle.com/datasets/andrewmvd/liver-tumor-segmentation-part-2 
 ---
 
 ## Setup
