@@ -14,7 +14,6 @@ This configuration is used by the DataPreprocessor and CTPreprocessingPipeline t
 from dataclasses import dataclass
 from typing import Tuple
 
-
 @dataclass
 class PreprocessingConfig:
     """
