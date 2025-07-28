@@ -77,6 +77,20 @@ CT-SCAN-SEGMENTATION/
 
 ---
 
+## Dataset
+1. **Medical Segmentation Decathlon**:
+   All data will be made available online with a permissive copyright-license (CC-BY-SA 4.0), allowing for data to be shared, distributed and improved upon. All data has been labeled and verified by an expert human rater, and with the best effort to mimic the accuracy required for clinical use.
+   Link: http://medicaldecathlon.com/
+2. **Jawaharlal Institute of Postgraduate Medical Education and Research**:
+   Data of 25 patients with annotations of Liver, Tumor, Hepatic Artery, Hepatic Veins and Portal Veins in 3 Phases (Arterial, Portal, Venous) as NifTi Volumes
+   Link: Not for General Use
+3. **LiTS Dataset**:
+   This dataset was extracted from LiTS – Liver Tumor Segmentation Challenge (LiTS17) organised in conjunction with ISBI 2017 and MICCAI 2017.The liver is a common site of primary or secondary tumor development.
+   Link:
+   - Part 1: https://www.kaggle.com/datasets/andrewmvd/liver-tumor-segmentation
+   - Part 2: https://www.kaggle.com/datasets/andrewmvd/liver-tumor-segmentation-part-2 
+---
+
 ## Setup
 
 1. **Install dependencies** (recommended: use a virtual environment):
@@ -169,7 +183,7 @@ python run_evaluation.py --pred_dir predictions --gt_dir data_preprocessed/test 
 
 ---
 
-## Citation
+## Citations
 
 ```
 @article{dformer,
@@ -181,6 +195,24 @@ python run_evaluation.py --pred_dir predictions --gt_dir data_preprocessed/test 
   publisher={Springer}
 }
  ```
+
+```
+@inproceedings{xie2021segformer,
+  title={SegFormer: Simple and Efficient Design for Semantic Segmentation with Transformers},
+  author={Xie, Enze and Wang, Wenhai and Yu, Zhiding and Anandkumar, Anima and Alvarez, Jose M and Luo, Ping},
+  booktitle={Neural Information Processing Systems (NeurIPS)},
+  year={2021}
+}
+```
+
+```
+@article{chen2021transunet,
+  title={TransUNet: Transformers Make Strong Encoders for Medical Image Segmentation},
+  author={Chen, Jieneng and Lu, Yongyi and Yu, Qihang and Luo, Xiangde and Adeli, Ehsan and Wang, Yan and Lu, Le and Yuille, Alan L., and Zhou, Yuyin},
+  journal={arXiv preprint arXiv:2102.04306},
+  year={2021}
+}
+```
 
 ---
 
