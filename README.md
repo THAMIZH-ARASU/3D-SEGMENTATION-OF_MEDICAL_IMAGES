@@ -169,7 +169,7 @@ python run_evaluation.py --pred_dir predictions --gt_dir data_preprocessed/test 
 
 ---
 
-## Citation
+## Citations
 
 ```
 @article{dformer,
@@ -181,6 +181,24 @@ python run_evaluation.py --pred_dir predictions --gt_dir data_preprocessed/test 
   publisher={Springer}
 }
  ```
+
+```
+@inproceedings{xie2021segformer,
+  title={SegFormer: Simple and Efficient Design for Semantic Segmentation with Transformers},
+  author={Xie, Enze and Wang, Wenhai and Yu, Zhiding and Anandkumar, Anima and Alvarez, Jose M and Luo, Ping},
+  booktitle={Neural Information Processing Systems (NeurIPS)},
+  year={2021}
+}
+```
+
+```
+@article{chen2021transunet,
+  title={TransUNet: Transformers Make Strong Encoders for Medical Image Segmentation},
+  author={Chen, Jieneng and Lu, Yongyi and Yu, Qihang and Luo, Xiangde and Adeli, Ehsan and Wang, Yan and Lu, Le and Yuille, Alan L., and Zhou, Yuyin},
+  journal={arXiv preprint arXiv:2102.04306},
+  year={2021}
+}
+```
 
 ---
 
