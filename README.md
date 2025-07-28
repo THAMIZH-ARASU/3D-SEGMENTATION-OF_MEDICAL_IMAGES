@@ -77,6 +77,12 @@ CT-SCAN-SEGMENTATION/
 
 ---
 
+## Dataset
+1. **Medical Segmentation Decathlon**:
+2. **Jawaharlal Institute of Postgraduate Medical Education and Research**:
+
+---
+
 ## Setup
 
 1. **Install dependencies** (recommended: use a virtual environment):
