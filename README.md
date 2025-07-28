@@ -22,7 +22,7 @@ Supports preprocessing, training, prediction, and evaluation for medical image s
 
 ### 3D-outputs:
 ![3doutput1](output_images/deformer_3d_output_1.png)
-![3doutput2](deformer_output_images/3d_output_2.png)
+![3doutput2](output_images/deformer_3d_output_2.png)
 
 ### Training output
 ![trainingoutput](output_images/training_output_dformer3d_liverAndTumor.png)
