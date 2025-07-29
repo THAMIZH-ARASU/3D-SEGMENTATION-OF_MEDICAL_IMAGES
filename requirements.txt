@@ -1,8 +1,16 @@
-torch>=2.0
-pytorch-lightning>=2.0
-torchio>=0.19
-nibabel>=5.0
-scikit-image>=0.19
-pandas>=1.3
-scipy>=1.7
-monai>=1.2  # Optional, for MONAI models/transforms 
+torch
+pytorch-lightning
+torchio
+nibabel
+monai
+numpy
+pandas
+scipy
+scikit-learn
+scikit-image
+matplotlib
+tqdm
+transformers
+timm
+einops
+ml_collections
