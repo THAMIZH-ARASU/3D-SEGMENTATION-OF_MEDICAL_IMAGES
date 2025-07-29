@@ -65,7 +65,7 @@ def test_segformer_module():
     print("Testing SegFormerModule (2D)...")
     
     try:
-        from models.transformers.segformer.segformer_module import SegFormerModule
+        from models.transformers.segformer.huggingface.segformer_module import SegFormerModule
         
         # Test parameters
         batch_size = 2

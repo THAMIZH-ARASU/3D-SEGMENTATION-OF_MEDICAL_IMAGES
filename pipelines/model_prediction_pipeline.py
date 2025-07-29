@@ -3,7 +3,7 @@ from configs.model_prediction_config import ModelPredictionConfig
 from model_prediction.data import get_prediction_loader
 from model_prediction.predictor import Predictor
 from model_training.lightning_module import SegmentationLightningModule
-from models.transformers.segformer.segformer_module import SegFormerModule
+from models.transformers.segformer.huggingface.segformer_module import SegFormerModule
 
 # Model registry for extensibility
 def get_model_class(model_name: str):

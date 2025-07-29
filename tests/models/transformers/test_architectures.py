@@ -28,7 +28,7 @@ def test_dformer3d_segnetwork():
 
 # SegFormerModule (2D)
 def test_segformer_module():
-    from models.transformers.segformer.segformer_module import SegFormerModule
+    from models.transformers.segformer.huggingface.segformer_module import SegFormerModule
     print("Testing SegFormerModule (2D)...")
     batch_size = 2
     in_chan = 3  # SegFormer expects 3 channels (RGB)

@@ -5,7 +5,7 @@ from model_training.trainer import SegmentationTrainer
 from model_training.lightning_module import SegmentationLightningModule
 
 # Import SegFormerModule for registry
-from models.transformers.segformer.segformer_module import SegFormerModule
+from models.transformers.segformer.huggingface.segformer_module import SegFormerModule
 
 # Model registry for extensibility
 def get_model_class(model_name: str):
