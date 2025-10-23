@@ -107,6 +107,7 @@ def extract_boundary(mask):
         This is a helper function used by boundary_f1_score to extract
         boundary information from segmentation masks.
     """
+
     # mask: binary np array
     eroded = binary_erosion(mask)
     boundary = mask ^ eroded
@@ -135,6 +136,7 @@ def boundary_f1_score(pred, gt, label, tolerance=1):
         segmentation boundaries, which is important in medical imaging.
         The function handles edge cases where no boundaries are present.
     """
+    
     pred_bin = (pred == label).astype(np.uint8)
     gt_bin = (gt == label).astype(np.uint8)
     if np.sum(pred_bin) == 0 and np.sum(gt_bin) == 0:
