@@ -1,6 +1,4 @@
 """
-model_prediction_config.py
-
 Configuration class for model prediction parameters. Defines model settings, data paths, device configuration, and output settings used in the prediction pipeline.
 
 This configuration is used by the Predictor class to control:

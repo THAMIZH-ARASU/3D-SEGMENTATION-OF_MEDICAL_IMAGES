@@ -1,6 +1,4 @@
 """
-model_training_config.py
-
 Configuration class for model training parameters. Defines model architecture, data settings, training hyperparameters, optimizer settings, and logging configuration used in the training pipeline.
 
 This configuration is used by the SegmentationTrainer and SegmentationLightningModule to control:
@@ -80,7 +78,7 @@ class ModelTrainingConfig:
             Default: False.
     """
     # Model
-    model_name: str = "dformer3d"  # e.g., 'dformer3d', 'unet3d', etc.
+    model_name: str = "dformer3d"  # e.g., 'dformer3d', 'unet3d', 'segformer' etc.
     model_params: Dict[str, Any] = field(default_factory=dict)
 
     # Data

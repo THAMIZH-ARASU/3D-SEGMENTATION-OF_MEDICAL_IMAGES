@@ -1,6 +1,4 @@
 """
-data_preprocessing_config.py
-
 Configuration class for CT scan data preprocessing parameters. Defines spatial, intensity, augmentation, and dataset splitting parameters used in the preprocessing pipeline.
 
 This configuration is used by the DataPreprocessor and CTPreprocessingPipeline to control:

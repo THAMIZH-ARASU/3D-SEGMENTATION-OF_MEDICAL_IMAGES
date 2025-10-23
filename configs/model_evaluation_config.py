@@ -1,6 +1,4 @@
 """
-model_evaluation_config.py
-
 Configuration class for model evaluation parameters. Defines paths, evaluation metrics, label mappings, and output settings used in the evaluation pipeline.
 
 This configuration is used by the Evaluator class to control:
