@@ -108,4 +108,4 @@ if __name__ == "__main__":
 # python3 run_data_preprocessing.py --dataset_path /home/icmr/Documents/MultiPhaseSegmentation/JIPMER_Data --dataset_type jipmer --output_dir data_preprocessed --phase Arterial
 
 # LiTS dataset
-# python3 run_data_preprocessing.py --dataset_path /path/to/lits/dataset --dataset_type lits --output_dir data_preprocessed
+# python3 run_data_preprocessing.py --dataset_path /home/icmr/Documents/LiTS_Dataset --dataset_type lits --output_dir data_preprocessed

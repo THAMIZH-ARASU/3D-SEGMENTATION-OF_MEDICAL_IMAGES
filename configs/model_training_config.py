@@ -88,6 +88,7 @@ class ModelTrainingConfig:
     num_workers: int = 4
     input_channels: int = 1
     num_classes: int = 14
+    target_label: Optional[int] = None  # For single-class training (e.g., tumor=2)
 
     # Training
     max_epochs: int = 100
