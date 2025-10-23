@@ -1,6 +1,4 @@
 """
-handler.py
-
 Base class for dataset handlers in CT scan segmentation preprocessing. Defines the interface for dataset validation and subject list extraction for different dataset formats (e.g., MSD, JIPMER).
 """
 from pathlib import Path

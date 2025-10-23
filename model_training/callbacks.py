@@ -1,6 +1,4 @@
 """
-callbacks.py
-
 Utility module for creating PyTorch Lightning callbacks used in the training pipeline. Provides a centralized function to configure model checkpointing, early stopping, and learning rate monitoring callbacks based on training configuration.
 
 This module is used by the SegmentationTrainer to set up training callbacks that handle:

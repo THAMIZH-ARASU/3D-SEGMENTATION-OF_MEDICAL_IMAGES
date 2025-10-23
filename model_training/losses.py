@@ -1,6 +1,4 @@
 """
-losses.py
-
 Loss functions for medical image segmentation tasks. Implements cross-entropy loss with optional class weighting for handling class imbalance in segmentation datasets.
 
 This module provides loss functions specifically designed for segmentation tasks,

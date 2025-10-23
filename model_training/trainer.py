@@ -1,6 +1,4 @@
 """
-trainer.py
-
 PyTorch Lightning trainer wrapper for medical image segmentation training. Provides a high-level interface for training, validation, and testing of segmentation models with comprehensive logging and checkpointing.
 
 This module encapsulates the PyTorch Lightning Trainer with custom callbacks,

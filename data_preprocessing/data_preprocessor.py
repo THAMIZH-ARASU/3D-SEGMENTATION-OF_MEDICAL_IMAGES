@@ -1,6 +1,4 @@
 """
-data_preprocessor.py
-
 Main orchestrator for CT scan data preprocessing. Handles dataset validation, splitting, transformation, normalization, and saving of preprocessed images, labels, and metadata for segmentation tasks. Supports both Medical Segmentation Decathlon (MSD) and JIPMER datasets.
 
 Key Features:

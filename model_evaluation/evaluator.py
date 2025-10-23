@@ -1,6 +1,4 @@
 """
-evaluator.py
-
 Model evaluation module for medical image segmentation. Provides comprehensive evaluation of segmentation model performance using multiple metrics including Dice coefficient, Jaccard index, boundary F1 score, and accuracy.
 
 This module handles loading of predictions and ground truth, computing evaluation

@@ -1,6 +1,4 @@
 """
-data.py
-
 Data loading utilities for model prediction/inference. Provides functions to create data loaders for prediction tasks using preprocessed medical images.
 
 This module handles the creation of prediction data loaders that work with

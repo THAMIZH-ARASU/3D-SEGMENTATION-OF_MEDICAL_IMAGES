@@ -1,6 +1,4 @@
 """
-msd_handler.py
-
 Handler for the Medical Segmentation Decathlon (MSD) dataset format. Extracts subject lists and validates dataset structure for preprocessing pipelines.
 """
 from typing import Dict, List

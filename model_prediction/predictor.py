@@ -1,6 +1,4 @@
 """
-predictor.py
-
 Model prediction/inference module for medical image segmentation. Provides a high-level interface for running inference with trained segmentation models and saving predictions in NIfTI format.
 
 This module handles model loading, batch prediction, post-processing, and

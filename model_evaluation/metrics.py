@@ -1,6 +1,4 @@
 """
-metrics.py
-
 Evaluation metrics for medical image segmentation using NumPy arrays. Implements Dice coefficient, Jaccard index (IoU), accuracy, and boundary F1 score for comprehensive segmentation evaluation.
 
 This module provides NumPy-based implementations of segmentation metrics that work

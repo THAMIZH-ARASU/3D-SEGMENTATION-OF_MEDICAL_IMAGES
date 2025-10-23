@@ -1,6 +1,4 @@
 """
-optimizers.py
-
 Optimizer and scheduler configuration for medical image segmentation training. Provides a centralized function to create optimizers and learning rate schedulers based on training configuration.
 
 This module supports multiple optimizer types (Adam, AdamW, SGD) and scheduler types

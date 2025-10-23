@@ -1,6 +1,4 @@
 """
-intensity_normalizer.py
-
 Implements intensity normalization strategies for CT scan images, including z-score, min-max, and robust normalization. Used in preprocessing pipelines to standardize image intensities for segmentation models.
 """
 from typing import Dict, Optional, Tuple

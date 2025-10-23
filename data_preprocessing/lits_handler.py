@@ -1,6 +1,4 @@
 """
-lits_handler.py
-
 Handler for the LiTS (Liver Tumor Segmentation) dataset format. Extracts subject lists and validates dataset structure for preprocessing pipelines.
 
 The LiTS dataset structure:

@@ -1,6 +1,4 @@
 """
-jipmer_handler.py
-
 Handler for the JIPMER CT scan dataset format, supporting multiple imaging phases (Arterial, Portal, Venous). Extracts subject lists and validates dataset structure for preprocessing pipelines.
 """
 from typing import Dict, List

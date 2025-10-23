@@ -1,6 +1,4 @@
 """
-lightning_module.py
-
 PyTorch Lightning module for medical image segmentation training. Implements the training, validation, and testing logic for segmentation models with comprehensive metric logging and loss computation.
 
 This module handles:
