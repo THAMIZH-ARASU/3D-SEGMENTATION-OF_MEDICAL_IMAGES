@@ -28,54 +28,6 @@ Supports preprocessing, training, prediction, and evaluation for medical image s
 ![trainingoutput](output_images/training_output_dformer3d_liverAndTumor.png)
 
 ---
-## Project Structure
-
-```
-CT-SCAN-SEGMENTATION/
-│
-├── configs/
-│   ├── data_preprocessing_config.py
-│   ├── model_training_config.py
-│   ├── model_prediction_config.py
-│   └── model_evaluation_config.py
-│
-├── data_preprocessing/
-│   └── ... (handlers, normalizers, etc.)
-│
-├── model_training/
-│   ├── trainer.py
-│   ├── lightning_module.py
-│   ├── losses.py
-│   ├── optimizers.py
-│   ├── metrics.py
-│   └── callbacks.py
-│
-├── model_prediction/
-│   ├── predictor.py
-│   └── data.py
-│
-├── model_evaluation/
-│   ├── evaluator.py
-│   └── metrics.py
-│
-├── models/
-│   └── ... (DFormer3D, UNet3D, etc.)
-│
-├── pipelines/
-│   ├── data_loading_pipeline.py
-│   ├── data_preprocessing_pipeline.py
-│   ├── model_training_pipeline.py
-│   ├── model_prediction_pipeline.py
-│   └── model_evaluation_pipeline.py
-│
-├── run_data_preprocessing.py
-├── run_training.py
-├── run_prediction.py
-├── run_evaluation.py
-└── README.md
-```
-
----
 
 ## Dataset
 1. **Medical Segmentation Decathlon**:
