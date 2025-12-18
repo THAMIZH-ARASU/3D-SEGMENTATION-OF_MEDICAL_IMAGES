@@ -83,7 +83,7 @@ CT-SCAN-SEGMENTATION/
    - Link: http://medicaldecathlon.com/
 2. **Jawaharlal Institute of Postgraduate Medical Education and Research**:
    Data of 25 patients with annotations of Liver, Tumor, Hepatic Artery, Hepatic Veins and Portal Veins in 3 Phases (Arterial, Portal, Venous) as NifTi Volumes
-   - Link: Not for General Use
+   - Link: Not for Public Use
 3. **LiTS Dataset**:
    This dataset was extracted from LiTS – Liver Tumor Segmentation Challenge (LiTS17) organised in conjunction with ISBI 2017 and MICCAI 2017.The liver is a common site of primary or secondary tumor development.
    Link:
